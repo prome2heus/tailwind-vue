@@ -3,6 +3,8 @@ import HelloWorld from "./components/HelloWorld.vue";
 import mainSection from "./components/mainSection.vue";
 import headerBar from "./components/headerBar.vue";
 import promo from "./components/promo.vue";
+import testimonial from "./components/testimonial.vue";
+import profileImage from "./assets/face.jpg";
 </script>
 
 <template>
@@ -11,14 +13,14 @@ import promo from "./components/promo.vue";
     <div>
       <mainSection></mainSection>
       <promo></promo>
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" class="logo" alt="Vite logo" />
-      </a>
-      <a href="https://vuejs.org/" target="_blank">
-        <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-      </a>
     </div>
-    <HelloWorld msg="Vite + Vue" />
+    <testimonial
+      :image="profileImage"
+      name="John"
+      surname="Doe"
+      opinion="This is a great service!"
+      :stars="4"
+    />
   </div>
 </template>
 
