@@ -1,15 +1,9 @@
 <template>
-  <header class="sticky top-0 w-full z-10 bg-white">
+  <header class="sticky top-0 z-10 w-full bg-white">
     <nav
-      class="mx-auto flex max-w-4xl items-center justify-between p-6 lg:px-8"
+      class="mx-auto flex max-w-7xl items-center p-6 lg:justify-between lg:px-8"
       aria-label="Global"
     >
-      <div class="flex lg:flex-1">
-        <a href="#" class="-m-1.5 p-0.5">
-          <span class="sr-only">Your Company</span>
-          <img class="h-12 w-auto" src="/logo.png" alt="" />
-        </a>
-      </div>
       <div class="flex lg:hidden">
         <button
           type="button"
@@ -20,6 +14,14 @@
           <Bars3Icon class="h-6 w-6" aria-hidden="true" />
         </button>
       </div>
+
+      <div class="flex flex-1 justify-center lg:justify-start">
+        <router-link to="/" class="-m-1.5 p-0.5">
+          <span class="sr-only">Your Company</span>
+          <img class="h-12" src="/logo.png" alt="" />
+        </router-link>
+      </div>
+
       <PopoverGroup class="hidden lg:flex lg:gap-x-12">
         <Popover class="relative">
           <PopoverButton
@@ -91,11 +93,22 @@
           </transition>
         </Popover>
 
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
-          >Features</a
+        <router-link
+          id="features"
+          to="/features"
+          class="text-sm font-semibold leading-6 text-gray-900"
+          :class="{
+            'text-blue-500': $route.path === '/features',
+            'text-gray-900': $route.path !== '/features',
+          }"
+          >Features</router-link
         >
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
-          >Marketplace</a
+
+        <router-link
+          to="/features"
+          class="text-sm font-semibold leading-6 text-gray-900 target:bg-blue-600"
+        >
+          Marketplace</router-link
         >
 
         <Popover class="relative">
@@ -152,98 +165,99 @@
       @close="mobileMenuOpen = false"
       :open="mobileMenuOpen"
     >
-      <div class="fixed inset-0 z-10" />
-      <DialogPanel
-        class="absolute inset-y-0 right-0 z-10 flex w-full flex-col justify-between overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
-      >
-        <div class="p-6">
-          <div class="flex items-center justify-between">
-            <a href="#" class="-m-1.5 p-1.5">
-              <span class="sr-only">Your Company</span>
-              <img
-                class="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
-            </a>
-            <button
-              type="button"
-              class="-m-2.5 rounded-md p-2.5 text-gray-700"
-              @click="mobileMenuOpen = false"
-            >
-              <span class="sr-only">Close menu</span>
-              <XMarkIcon class="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <div class="mt-6 flow-root">
-            <div class="-my-6 divide-y divide-gray-500/10">
-              <div class="space-y-2 py-6">
-                <a
-                  v-for="item in products"
-                  :key="item.name"
-                  :href="item.href"
-                  class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  <div
-                    class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white"
+      <div class="fixed inset-0 z-10">
+        <DialogPanel
+          class="absolute inset-y-0 left-0 z-10 flex w-full flex-col justify-between overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+        >
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <a href="#" class="-m-1.5 p-1.5">
+                <span class="sr-only">Your Company</span>
+                <img
+                  class="h-8 w-auto"
+                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                  alt=""
+                />
+              </a>
+              <button
+                type="button"
+                class="-m-2.5 rounded-md p-2.5 text-gray-700"
+                @click="mobileMenuOpen = false"
+              >
+                <span class="sr-only">Close menu</span>
+                <XMarkIcon class="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
+            <div class="mt-6 flow-root">
+              <div class="-my-6 divide-y divide-gray-500/10">
+                <div class="space-y-2 py-6">
+                  <a
+                    v-for="item in products"
+                    :key="item.name"
+                    :href="item.href"
+                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    <component
-                      :is="item.icon"
-                      class="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  {{ item.name }}
-                </a>
-              </div>
-              <div class="space-y-2 py-6">
-                <a
-                  href="#"
-                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >Features</a
-                >
-                <a
-                  href="#"
-                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >Marketplace</a
-                >
+                    <div
+                      class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white"
+                    >
+                      <component
+                        :is="item.icon"
+                        class="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    {{ item.name }}
+                  </a>
+                </div>
+                <div class="space-y-2 py-6">
+                  <a
+                    href="#"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >Features</a
+                  >
+                  <a
+                    href="#"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >Marketplace</a
+                  >
 
-                <a
-                  v-for="item in company"
-                  :key="item.name"
-                  :href="item.href"
-                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >{{ item.name }}</a
-                >
-              </div>
-              <div class="py-6">
-                <a
-                  href="#"
-                  class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >Log in</a
-                >
+                  <a
+                    v-for="item in company"
+                    :key="item.name"
+                    :href="item.href"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >{{ item.name }}</a
+                  >
+                </div>
+                <div class="py-6">
+                  <a
+                    href="#"
+                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >Log in</a
+                  >
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="sticky bottom-0 grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50 text-center"
-        >
-          <a
-            v-for="item in callsToAction"
-            :key="item.name"
-            :href="item.href"
-            class="p-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100"
-            >{{ item.name }}</a
+          <div
+            class="sticky bottom-0 grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50 text-center"
           >
-        </div>
-      </DialogPanel>
+            <a
+              v-for="item in callsToAction"
+              :key="item.name"
+              :href="item.href"
+              class="p-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100"
+              >{{ item.name }}</a
+            >
+          </div>
+        </DialogPanel>
+      </div>
     </Dialog>
   </header>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue';
 import {
   Dialog,
   DialogPanel,
@@ -251,7 +265,7 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
-} from "@headlessui/vue";
+} from '@headlessui/vue';
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -260,73 +274,73 @@ import {
   FingerPrintIcon,
   SquaresPlusIcon,
   XMarkIcon,
-} from "@heroicons/vue/24/outline";
+} from '@heroicons/vue/24/outline';
 import {
   ChevronDownIcon,
   PhoneIcon,
   PlayCircleIcon,
-} from "@heroicons/vue/20/solid";
+} from '@heroicons/vue/20/solid';
 
 const products = [
   {
-    name: "Analytics",
-    description: "Get a better understanding of your traffic",
-    href: "#",
+    name: 'Analytics',
+    description: 'Get a better understanding of your traffic',
+    href: '#',
     icon: ChartPieIcon,
   },
   {
-    name: "Engagement",
-    description: "Speak directly to your customers",
-    href: "#",
+    name: 'Engagement',
+    description: 'Speak directly to your customers',
+    href: '#',
     icon: CursorArrowRaysIcon,
   },
   {
-    name: "Security",
-    description: "Your customers’ data will be safe and secure",
-    href: "#",
+    name: 'Security',
+    description: 'Your customers’ data will be safe and secure',
+    href: '#',
     icon: FingerPrintIcon,
   },
   {
-    name: "Integrations",
-    description: "Connect with third-party tools",
-    href: "#",
+    name: 'Integrations',
+    description: 'Connect with third-party tools',
+    href: '#',
     icon: SquaresPlusIcon,
   },
   {
-    name: "Automations",
-    description: "Build strategic funnels that will convert",
-    href: "#",
+    name: 'Automations',
+    description: 'Build strategic funnels that will convert',
+    href: '#',
     icon: ArrowPathIcon,
   },
 ];
 const callsToAction = [
-  { name: "Watch demo", href: "#", icon: PlayCircleIcon },
-  { name: "Contact sales", href: "#", icon: PhoneIcon },
+  { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
+  { name: 'Contact sales', href: '#', icon: PhoneIcon },
 ];
 const company = [
   {
-    name: "About us",
-    href: "#",
+    name: 'About us',
+    href: '#',
     description:
-      "Learn more about our company values and mission to empower others",
+      'Learn more about our company values and mission to empower others',
   },
   {
-    name: "Careers",
-    href: "#",
+    name: 'Careers',
+    href: '#',
     description:
-      "Looking for you next career opportunity? See all of our open positions",
+      'Looking for you next career opportunity? See all of our open positions',
   },
   {
-    name: "Support",
-    href: "#",
+    name: 'Support',
+    href: '#',
     description:
-      "Get in touch with our dedicated support team or reach out on our community forums",
+      'Get in touch with our dedicated support team or reach out on our community forums',
   },
   {
-    name: "Blog",
-    href: "#",
+    name: 'Blog',
+    href: '#',
     description:
-      "Read our latest announcements and get perspectives from our team",
+      'Read our latest announcements and get perspectives from our team',
   },
 ];
 
